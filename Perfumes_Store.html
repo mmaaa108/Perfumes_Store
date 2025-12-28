@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عِطْرَكُم - Itrakom Parfums</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1a237e;
+            --accent-gold: #ffa726;
+            --neutral-gray: #f8f9fa;
+            --text-primary: #2c3e50;
+            --text-secondary: #6c757d;
+            --pure-white: #ffffff;
+            --light-blue: #e3f2fd;
+            --shadow-subtle: rgba(0,0,0,0.04);
+            --shadow-soft: rgba(0,0,0,0.1);
+            --shadow-medium: rgba(0,0,0,0.15);
+            --border-light: rgba(0,0,0,0.08);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Inter', sans-serif;
+            background: var(--neutral-gray);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(102, 126, 234, 0.03) 0%, transparent 70%),
+                radial-gradient(circle at 75% 75%, rgba(255, 167, 38, 0.03) 0%, transparent 70%);
+            z-index: -1;
+            animation: backgroundMove 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundMove {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-20px) translateY(-10px); }
+            50% { transform: translateX(10px) translateY(-20px); }
+            75% { transform: translateX(-10px) translateY(10px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Modern Header */
+        .modern-header {
+            text-align: center;
+            padding: 80px 0 60px;
+            position: relative;
+        }
+
+        .brand-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .brand-name {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .brand-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .header-description {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Floating Elements */
+        .floating-favorites {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            padding: 16px 24px;
+            border-radius: 50px;
+            box-shadow: 0 8px 32px var(--shadow-subtle);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .floating-favorites:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px var(--shadow-soft);
+        }
+
+        .heart-icon {
+            display: inline-block;
+            margin-left: 8px;
+            color: var(--accent-gold);
+            animation: gentlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        /* Products Grid */
+        .products-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            padding: 40px 0 100px;
+        }
+
+        .product-card {
+            background: var(--pure-white);
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid var(--border-light);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px var(--shadow-subtle);
+        }
+
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+            border-radius: 24px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 16px 64px var(--shadow-medium);
+            border-color: rgba(102, 126, 234, 0.2);
+        }
+
+        .product-card:hover::after {
+            opacity: 0.02;
+        }
+
+        .product-visual {
+            height: 280px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8eaf6 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-visual::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .perfume-icon {
+            font-size: 4.5rem;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.1));
+        }
+
+        .product-card:hover .perfume-icon {
+            transform: scale(1.08) translateY(-8px);
+        }
+
+        .favorite-heart {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+            box-shadow: 0 4px 16px var(--shadow-subtle);
+        }
+
+        .favorite-heart:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 24px var(--shadow-soft);
+            border-color: var(--accent-gold);
+        }
+
+        .favorite-heart.loved {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: var(--pure-white);
+            border-color: #ff6b6b;
+            animation: heartBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes heartBounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .product-info {
+            padding: 32px 28px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .product-category {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .product-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .price-currency {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-right: 6px;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: var(--accent-gold);
+            font-size: 1rem;
+        }
+
+        .modern-button {
+            width: 100%;
+            background: var(--gradient-primary);
+            color: var(--pure-white);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modern-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .modern-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+        }
+
+        .modern-button:hover::before {
+            left: 100%;
+        }
+
+        .modern-button:active {
+            transform: translateY(0);
+        }
+
+        /* Elegant Notification */
+        .elegant-notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: var(--pure-white);
+            border: 1px solid var(--border-light);
+            padding: 32px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 80px var(--shadow-medium);
+            backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000;
+            text-align: center;
+            min-width: 320px;
+        }
+
+        .elegant-notification.visible {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .notification-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .notification-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        /* Loading Animation */
+        .product-card {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+        .product-card:nth-child(5) { animation-delay: 0.5s; }
+        .product-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .products-showcase {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 32px 0 80px;
+            }
+
+            .floating-favorites {
+                top: 20px;
+                left: 20px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .modern-header {
+                padding: 60px 0 40px;
+            }
+
+            .product-visual {
+                height: 240px;
+            }
+
+            .perfume-icon {
+                font-size: 3.5rem;
+            }
+
+            .product-info {
+                padding: 24px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-name {
+                font-size: 2rem;
+            }
+
+            .products-showcase {
+                gap: 20px;
+            }
+
+            .product-card {
+                margin: 0 4px;
+            }
+
+            .elegant-notification {
+                min-width: 280px;
+                padding: 24px 28px;
+            }
+        }
+
+        /* Accessibility Improvements */
+        .favorite-heart:focus,
+        .modern-button:focus {
+            outline: 2px solid var(--accent-gold);
+            outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Modern Header -->
+        <header class="modern-header">
+            <div class="brand-container">
+                <h1 class="brand-name">عِطْرَكُم </h1>
+                <p class="brand-subtitle">Itrakom Parfums</p>
+            </div>
+            <p class="header-description">حيث تلتقي الأناقة بالعطور الفاخرة</p>
+        </header>
+
+        <!-- Floating Favorites -->
+        <div class="floating-favorites">
+            <span class="heart-icon">♡</span>
+            المفضلة: <span id="favoritesCount">0</span>
+        </div>
+
+        <!-- Products Showcase -->
+        <main class="products-showcase" id="productsContainer">
+            <!-- Products will be dynamically inserted here -->
+        </main>
+    </div>
+
+    <!-- Elegant Notification -->
+    <div class="elegant-notification" id="notification">
+        <span class="notification-icon" id="notificationIcon">✨</span>
+        <div class="notification-text" id="notificationText"></div>
+    </div>
+
+    <script>
+        // Modern Perfumes Collection
+        const moderPerfumes = [
+            {
+                id: 1,
+                name: "سيد الصحراء",
+                price: 750,
+                description: "عطر فاخر مستوحى من عبق الصحراء العربية، يمزج بين العود الكمبودي الأصيل وزهر الياسمين الدمشقي",
+                icon: "🏺",
+                rating:5
+            },
+            {
+                id: 2,
+                name: "ليالي شرقية",
+                price: 920,
+                description: "تركيبة ملكية من أندر أنواع العنبر الهندي مع الزعفران الإيراني والورد الطائفي النقي",
+                icon: "🌙",
+                rating:4
+            },
+            {
+                id: 3,
+                name: "ملكة سبأ",
+                price: 650,
+                description: "عطر نسائي راقي يجمع بين رقة البنفسج وقوة المسك الأبيض مع لمسة من خشب الصندل",
+                icon: "👑",
+                rating:5
+            },
+            {
+                id: 4,
+                name: "فارس الليل",
+                price: 840,
+                description: "عطر رجالي جذاب يحتوي على أجود أنواع العود المعتق مع نفحات من الكادي والأمبر",
+                icon: "🗡️",
+                rating:5
+            },
+            {
+                id: 5,
+                name: "مينا ",
+                price: 580,
+                description: "باقة من أرقى الورود البلغارية مع الفريزيا الفرنسية ولمسة خفيفة من المسك الأزرق",
+                icon: "🌹",
+                rating:4
+            },
+            {
+                id: 6,
+                name: "سحر الشرق",
+                price: 1200,
+                description: "تحفة عطرية نادرة من أجود أنواع العود الهندي القديم مع البخور الصومالي الطبيعي",
+                icon: "✨",
+                rating:5
+            }
+        ];
+
+        // Application State
+        let favoritesList = JSON.parse(localStorage.getItem('eleganceFavorites')) || [];
+
+        // Notification System
+        function showNotification(message, icon = "✨") {
+            const notification = document.getElementById('notification');
+            const notificationIcon = document.getElementById('notificationIcon');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationIcon.textContent = icon;
+            notificationText.textContent = message;
+            
+            notification.classList.add('visible');
+            
+            setTimeout(() => {
+                notification.classList.remove('visible');
+            }, 3500);
+        }
+
+        // Update Favorites Counter
+        function updateFavoritesDisplay() {
+            document.getElementById('favoritesCount').textContent = favoritesList.length;
+        }
+
+        // Toggle Favorite Status
+        function toggleFavoriteStatus(productId, event) {
+            event.stopPropagation();
+            
+            const heartButton = event.currentTarget;
+            const product = moderPerfumes.find(p => p.id === productId);
+            
+            if (favoritesList.includes(productId)) {
+                favoritesList = favoritesList.filter(id => id !== productId);
+                heartButton.classList.remove('loved');
+                heartButton.innerHTML = '♡';
+                showNotification(`تم حذف "${product.name}" من المفضلة`, "💔");
+            } else {
+                favoritesList.push(productId);
+                heartButton.classList.add('loved');
+                heartButton.innerHTML = '♥';
+                showNotification(`تم إضافة "${product.name}" للمفضلة`, "💖");
+            }
+            
+            localStorage.setItem('eleganceFavorites', JSON.stringify(favoritesList));
+            updateFavoritesDisplay();
+        }
+
+        // Product Details View
+        function showProductDetails(productId) {
+            const product = moderPerfumes.find(p => p.id === productId);
+            showNotification(`عرض تفاصيل "${product.name}"`, product.icon);
+        }
+
+        // Add to Cart Function
+        function addProductToCart(productId, event) {
+            event.stopPropagation();
+            const product = moderPerfumes.find(p => p.id === productId);
+            showNotification(`تم إضافة "${product.name}" للسلة`, "🛒");
+        }
+
+        // Generate Star Rating
+        function generateStarRating(rating) {
+            return Array(5).fill(0).map((_, i) => 
+                `<span class="star">${i < rating ? '★' : '☆'}</span>`
+            ).join('');
+        }
+
+        // Create Product Card HTML
+        function generateProductCard(product) {
+            const isFavorited = favoritesList.includes(product.id);
+            const heartIcon = isFavorited ? '♥' : '♡';
+            const heartClass = isFavorited ? 'loved' : '';
+
+            return `
+                <article class="product-card" onclick="showProductDetails(${product.id})">
+                    <div class="product-visual">
+                        <div class="perfume-icon">${product.icon}</div>
+                        <button class="favorite-heart ${heartClass}" 
+                                onclick="toggleFavoriteStatus(${product.id}, event)"
+                                aria-label="إضافة للمفضلة">
+                            ${heartIcon}
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <h2 class="product-name">${product.name}</h2>
+                        <p class="product-description">${product.description}</p>
+                        <div class="price-container">
+                            <div>
+                                <span class="product-price">${product.price}</span>
+                                <span class="price-currency">ر.س</span>
+                            </div>
+                            <div class="rating-stars">
+                                ${generateStarRating(product.rating)}
+                            </div>
+                        </div>
+                        <button class="modern-button" onclick="addProductToCart(${product.id}, event)">
+                            إضافة للسلة
+                        </button>
+                    </div>
+                </article>
+            `;
+        }
+
+        // Initialize Application
+        function initializeApp() {
+            const productsContainer = document.getElementById('productsContainer');
+            productsContainer.innerHTML = moderPerfumes
+                .map(product => generateProductCard(product))
+                .join('');
+            
+            updateFavoritesDisplay();
+        }
+
+        // Start Application
+        document.addEventListener('DOMContentLoaded', initializeApp);
+
+        // Touch optimization
+        document.addEventListener('touchstart', function() {}, { passive: true });
+    </script>
+</body>
+</html>
